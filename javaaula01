@@ -1,1 +1,36 @@
 
+public class JavaAula01 {
+
+    public static void main(String[] args) {
+
+        System.out.println("Billie Eilish");
+
+        int x = 78677;
+
+        int y = 21322;
+
+        double a = 15656.765;
+
+        double b = 233.435;
+
+        System.out.println(x + y);
+
+        System.out.println(x * y);
+
+        System.out.println(x / y);
+
+        System.out.println(x - y);
+
+        System.out.println(a * x);
+
+        System.out.println(x / b);
+
+        if (x > y) {
+
+            System.out.println("x maior que y");
+        } else {
+            System.out.println("x menor que y");
+        }
+    }
+}
+
