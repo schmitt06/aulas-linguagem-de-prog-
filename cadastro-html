@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sistema Escolar | Cadastro</title>
+    <style>
+        :root {
+            --primary-color: #4a90e2;
+            --bg-body: #e9f1fc;
+            --text-dark: #333;
+            --white: #f1f3f5;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg-body);
+            color: var(--text-dark);
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 650px;
+            background: var(--white);
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+        }
+
+        .titulo {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .titulo h1 {
+            color: var(--primary-color);
+            margin: 0;
+            font-size: 1.8rem;
+        }
+
+        .titulo p {
+            color: #777;
+            margin-top: 5px;
+        }
+
+        fieldset {
+            border: 1px solid #71a1e9;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 25px;
+        }
+
+        legend {
+            padding: 0 10px;
+            font-weight: bold;
+            color: var(--primary-color);
+            text-transform: uppercase;
+            font-size: 0.85rem;
+            letter-spacing: 1px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+
+        input[type="text"],
+        input[type="date"],
+        input[type="email"] {
+            width: 100%;
+            padding: 12px;
+            margin-bottom: 20px;
+            border: 1px solid #5e8bdd;
+            border-radius: 6px;
+            box-sizing: border-box;
+            transition: border-color 0.3s;
+        }
+
+        input:focus {
+            outline: none;
+            border-color: var(--primary-color);
+        }
+
+        .genero-container {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .genero-container label {
+            display: flex;
+            align-items: center;
+            font-weight: normal;
+            cursor: pointer;
+        }
+
+        .genero-container input {
+            margin-right: 8px;
+        }
+
+        .btn-container {
+            text-align: center;
+        }
+
+        button.cadastrar {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 15px 40px;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: transform 0.2s, background 0.3s;
+            width: 100%;
+        }
+
+        button.cadastrar:hover {
+            background-color: #82a1c0;
+            transform: translateY(-2px);
+        }
+
+        .resultado {
+            margin-top: 30px;
+            display: none;
+            padding: 25px;
+            border-radius: 12px;
+            width: 100%;
+            max-width: 650px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <div class="titulo">
+            <h1>EEB Dom Jaime de Barros Camara</h1>
+            <p>Portal de Cadastro de Alunos</p>
+        </div>
+
+        <form id="meuForm">
+            <fieldset>
+                <legend>Informações do Aluno</legend>
+                
+                <label for="nome">Nome Completo:</label>
+                <input type="text" id="nome" placeholder="Digite o nome do aluno" required>
+
+                <label>Gênero:</label>
+                <div class="genero-container">
+                    <label><input type="radio" name="genero" value="Masculino"> Masculino</label>
+                    <label><input type="radio" name="genero" value="Feminino"> Feminino</label>
+                    <label><input type="radio" name="genero" value="Outro"> Outro</label>
+                </div>
+
+                <div style="display: flex; gap: 20px;">
+                    <div style="flex: 1;">
+                        <label for="dataNesc">Data de Nascimento:</label>
+                        <input type="date" id="dataNesc">
+                    </div>
+                    <div style="flex: 1;">
+                        <label for="cpf">CPF do Aluno:</label>
+                        <input type="text" class="input-cpf" id="cpf" placeholder="000.000.000-00" maxlength="14">
+                    </div>
+                </div>
+
+                <label for="email">E-mail de Contato:</label>
+                <input type="email" id="email" placeholder="email@exemplo.com">
+            </fieldset>
+
+            <fieldset>
+                <legend>Dados dos Responsáveis</legend>
+                
+                <label for="nomePai">Nome do Pai/Responsável 1:</label>
+                <input type="text" id="nomePai" placeholder="Nome completo">
+                
+                <label for="cpfPai">CPF do Responsável 1:</label>
+                <input type="text" class="input-cpf" id="cpfPai" placeholder="000.000.000-00" maxlength="14">
+
+                <hr style="margin: 20px 0; border: 0; border-top: 1px solid #eee;">
+
+                <label for="nomeMae">Nome da Mãe/Responsável 2:</label>
+                <input type="text" id="nomeMae" placeholder="Nome completo">
+                
+                <label for="cpfMae">CPF do Responsável 2:</label>
+                <input type="text" class="input-cpf" id="cpfMae" placeholder="000.000.000-00" maxlength="14">
+            </fieldset>
+
+            <div class="btn-container">
+                <button type="button" class="cadastrar" onclick="mostrarDados()">Finalizar e Gerar Ficha</button>
+            </div>
+        </form>
+    </div>
+
+    <div id="resultado" class="resultado"></div>
+
+    <script>
+        document.querySelectorAll('.input-cpf').forEach(input => {
+            input.addEventListener('input', function (e) {
+                let value = e.target.value.replace(/\D/g, '');
+                if (value.length > 11) value = value.slice(0, 11);
+                value = value.replace(/(\d{3})(\d)/, '$1.$2');
+                value = value.replace(/(\d{3})(\d)/, '$1.$2');
+                value = value.replace(/(\d{3})(\d{1,2})$/, '$1-$2');
+                e.target.value = value;
+            });
+        });
+
+        function mostrarDados() {
+            const corFicha = "#4a90e2"; 
+
+            const nome = document.getElementById("nome").value;
+            const dataNesc = document.getElementById("dataNesc").value;
+            const cpf = document.getElementById("cpf").value;
+            const email = document.getElementById("email").value;
+            
+            const nomePai = document.getElementById("nomePai").value;
+            const cpfPai = document.getElementById("cpfPai").value;
+            const nomeMae = document.getElementById("nomeMae").value;
+            const cpfMae = document.getElementById("cpfMae").value;
+
+            const generoSelecionado = document.querySelector('input[name="genero"]:checked');
+            const genero = generoSelecionado ? generoSelecionado.value : "Não informado";
+
+            if (!nome) {
+                alert("Por favor, preencha ao menos o nome do aluno.");
+                return;
+            }
+
+            const r = parseInt(corFicha.substr(1,2), 16);
+            const g = parseInt(corFicha.substr(3,2), 16);
+            const b = parseInt(corFicha.substr(5,2), 16);
+            const luminosidade = (r * 299 + g * 587 + b * 114) / 1000;
+            const corTexto = luminosidade > 128 ? '#333' : '#fff';
+
+            const divResultado = document.getElementById("resultado");
+            divResultado.style.display = "block";
+            divResultado.style.backgroundColor = corFicha;
+            divResultado.style.color = corTexto;
+
+            const dataFormatada = dataNesc ? dataNesc.split('-').reverse().join('/') : "Não informada";
+
+            divResultado.innerHTML = `
+                <h2 style="margin-top:0; text-align:center;">Ficha de Matrícula</h2>
+                <hr style="border: 0; border-top: 1px solid ${corTexto}; opacity: 0.3">
+                
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
+                    <div>
+                        <p><strong>Nome:</strong> ${nome}</p>
+                        <p><strong>Gênero:</strong> ${genero}</p>
+                        <p><strong>Nascimento:</strong> ${dataFormatada}</p>
+                    </div>
+                    <div>
+                        <p><strong>CPF:</strong> ${cpf || "---"}</p>
+                        <p><strong>E-mail:</strong> ${email || "---"}</p>
+                    </div>
+                </div>
+
+                <h3 style="margin-top:20px; border-bottom: 1px solid ${corTexto}55">Responsáveis</h3>
+                <p><strong>Pai:</strong> ${nomePai || "Não informado"} <br> <small>CPF: ${cpfPai || "N/A"}</small></p>
+                <p><strong>Mãe:</strong> ${nomeMae || "Não informado"} <br> <small>CPF: ${cpfMae || "N/A"}</small></p>
+            `;
+            
+            divResultado.scrollIntoView({ behavior: 'smooth' });
+        }
+    </script>
+</body>
+</html>
