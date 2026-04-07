@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
@@ -25,13 +26,12 @@
             background-color: var(--bg-body);
             color: var(--text-main);
             margin: 0;
-            padding-top: 80px; /* Espaço para o menu fixo */
+            padding-top: 80px;
             display: flex;
             flex-direction: column;
             align-items: center;
         }
 
-        /* --- MENU ESTILIZADO --- */
         .menu {
             position: fixed;
             top: 0;
@@ -72,7 +72,6 @@
 
         .menu-direita span:hover { background: var(--primary-dark); }
 
-        /* --- CONTAINER PRINCIPAL --- */
         .container {
             width: 90%;
             max-width: 700px;
@@ -178,7 +177,7 @@
             box-shadow: 0 10px 15px rgba(59, 130, 246, 0.4);
         }
 
-        /* --- RESULTADO (FICHA) --- */
+    
         .resultado {
             margin-top: 20px;
             display: none;
@@ -196,7 +195,7 @@
         }
 
         @media (max-width: 600px) {
-            .menu-centro { display: none; } /* Esconde links no mobile para simplificar */
+            .menu-centro { display: none; } 
             .container { padding: 20px; }
             .flex-mobile { flex-direction: column; gap: 0 !important; }
         }
@@ -208,16 +207,17 @@
         <div class="menu-esquerda">DOM JAIME</div>
         <div class="menu-centro">
             <span>Início</span>
-            <span>Alunos</span>
-            <span>Professores</span>
-            <span>Secretaria</span>
+            <span onclick="navegar('Alunos')">Alunos</span>
+            <span onclick="navegar('Professores')">Professores</span>
+            <span onclick="navegar('Secretaria')">Secretaria</span>
         </div>
         <div class="menu-direita">
             <span>Login</span>
         </div>
     </nav>
 
-    <div class="container">
+
+    <div class="Alunos">
         <div class="titulo">
             <h1>Matrícula Online</h1>
             <p>Preencha os dados abaixo com atenção</p>
@@ -228,7 +228,7 @@
                 <legend>Identificação do Aluno</legend>
                 
                 <label for="nome">Nome Completo</label>
-                <input type="text" id="nome" placeholder="Ex: João Silva Sauro" required>
+                <input type="text" id="nome" placeholder="Nome Completo" required>
 
                 <label>Gênero</label>
                 <div class="genero-container">
@@ -249,7 +249,8 @@
                 </div>
 
                 <label for="email">E-mail para Contato</label>
-                <input type="email" id="email" placeholder="contato@familia.com">
+                <input type="email" id="email" placeholder="contato@mail.com">
+
             </fieldset>
 
             <fieldset>
@@ -268,16 +269,101 @@
                 
                 <label for="cpfMae">CPF Responsável 2</label>
                 <input type="text" class="input-cpf" id="cpfMae" placeholder="000.000.000-00" maxlength="14">
+                            <button type="button" class="cadastrar" onclick="mostrarDados()">Gerar Ficha de Matrícula</button>
             </fieldset>
-
-            <button type="button" class="cadastrar" onclick="mostrarDados()">Gerar Ficha de Matrícula</button>
         </form>
     </div>
 
+        <div class="Professores">
+        <div class="titulo">
+            <h1>Matrícula Online</h1>
+            <p>Preencha os dados abaixo com atenção</p>
+        </div>
+
+                <form id="meuForm">
+            <fieldset>
+                <legend>Identificação do professor</legend>
+                
+                <label for="nome">Nome Completo</label>
+                <input type="text" id="nome" placeholder="Nome Completo" required>
+
+                <label>Gênero</label>
+                <div class="genero-container">
+                    <label><input type="radio" name="genero" value="Masculino"> Masc.</label>
+                    <label><input type="radio" name="genero" value="Feminino"> Fem.</label>
+                    <label><input type="radio" name="genero" value="Outro"> Outro</label>
+                </div>
+
+                <div style="display: flex; gap: 20px;" class="flex-mobile">
+                    <div style="flex: 1;">
+                        <label for="dataNesc">Data de Nascimento</label>
+                        <input type="date" id="dataNesc">
+                    </div>
+                    <div style="flex: 1;">
+                        <label for="cpf">CPF do professor</label>
+                        <input type="text" class="input-cpf" id="cpf" placeholder="000.000.000-00" maxlength="14">
+                    </div>
+                </div>
+                <label for="email">E-mail para Contato</label>
+                <input type="email" id="email" placeholder="contato@mail.com">
+                            <button type="button" class="cadastrar" onclick="mostrarDados()">Gerar Ficha de Matrícula</button>
+            </fieldset>
+
+
+
+            <div class="Secretaria">
+        <div class="titulo">
+            <h1>Matrícula Online</h1>
+            <p>Preencha os dados abaixo com atenção</p>
+        </div>
+
+                <form id="meuForm">
+            <fieldset>
+                <legend>Identificação da Secretaria</legend>
+                
+                <label for="nome">Nome Completo</label>
+                <input type="text" id="nome" placeholder="Nome Completo" required>
+
+                <label>Gênero</label>
+                <div class="genero-container">
+                    <label><input type="radio" name="genero" value="Masculino"> Masc.</label>
+                    <label><input type="radio" name="genero" value="Feminino"> Fem.</label>
+                    <label><input type="radio" name="genero" value="Outro"> Outro</label>
+                </div>
+
+                <div style="display: flex; gap: 20px;" class="flex-mobile">
+                    <div style="flex: 1;">
+                        <label for="dataNesc">Data de Nascimento</label>
+                        <input type="date" id="dataNesc">
+                    </div>
+                    <div style="flex: 1;">
+                        <label for="cpf">CPF do secretario</label>
+                        <input type="text" class="input-cpf" id="cpf" placeholder="000.000.000-00" maxlength="14">
+                    </div>
+                </div>
+                <label for="email">E-mail para Contato</label>
+                <input type="email" id="email" placeholder="contato@mail.com">
+                            <button type="button" class="cadastrar" onclick="mostrarDados()">Gerar Ficha de Matrícula</button>
+            </fieldset>
+
+
+    
+    .
     <div id="resultado" class="resultado"></div>
 
     <script>
-        // Máscara de CPF
+
+        function navegar(pagina){
+
+            let paginas = document.getElementsByClassName("pagina");
+            for(let i = 0; i < paginas.length; i++){
+                paginas[i].classList.remove("pagina-ativa");
+
+            
+            }
+            document.getElementById(pagina).classList.add("pagina-ativa")
+        }
+
         document.querySelectorAll('.input-cpf').forEach(input => {
             input.addEventListener('input', function (e) {
                 let value = e.target.value.replace(/\D/g, '');
@@ -303,6 +389,7 @@
             const cpfPai = document.getElementById("cpfPai").value;
             const nomeMae = document.getElementById("nomeMae").value;
             const cpfMae = document.getElementById("cpfMae").value;
+            
             const genero = document.querySelector('input[name="genero"]:checked')?.value || "Não informado";
 
             const divResultado = document.getElementById("resultado");
