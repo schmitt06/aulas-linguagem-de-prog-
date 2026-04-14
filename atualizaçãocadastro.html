@@ -189,6 +189,34 @@
             margin-bottom: 80px;
         }
 
+        .pagina {
+    display: none;
+}
+
+.pagina-ativa {
+    display: block;
+}
+
+.card{
+    background-color: dodgerblue;
+    padding: 20px;
+    border-radius: 4px;
+    text-align: center;
+    flex: 1;
+    box-shadow: 0 4px 8px darkgrey;
+    margin-top: 20px;
+    margin-bottom: 10px;
+}
+
+#dashboard{
+
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+}
+
+
+
         @keyframes fadeIn {
             from { opacity: 0; transform: translateY(20px); }
             to { opacity: 1; transform: translateY(0); }
@@ -217,13 +245,43 @@
     </nav>
 
 
-    <div class="Alunos">
-        <div class="titulo">
-            <h1>Matrícula Online</h1>
-            <p>Preencha os dados abaixo com atenção</p>
+<!--DASHBOARD-->
+    <div id="Dashboard" class="pagina pagina-ativa">
+
+        <div class="card">
+            <h2>Alunos Cadastrados</h2>
+            <p>0</p>
         </div>
 
-        <form id="meuForm">
+         <div class="card">
+            <h2>docentes lecionando na unidade</h2>
+            <p>0</p>
+        </div>
+
+         <div class="card">
+            <h2>funcionarios</h2>
+            <p>0</p>
+        </div>
+    </div>
+
+
+
+
+
+
+
+
+
+
+
+
+<!--ALUNOS-->
+    <div id="Alunos" class="pagina">
+
+                    <h1>Matrícula Online</h1>
+            <p>Preencha os dados abaixo com atenção</p>
+
+        <form id="Alunos">
             <fieldset>
                 <legend>Identificação do Aluno</legend>
                 
@@ -251,9 +309,7 @@
                 <label for="email">E-mail para Contato</label>
                 <input type="email" id="email" placeholder="contato@mail.com">
 
-            </fieldset>
-
-            <fieldset>
+        
                 <legend>Responsáveis Legais</legend>
                 
                 <label for="nomePai">Nome do Responsável 1</label>
@@ -272,15 +328,16 @@
                             <button type="button" class="cadastrar" onclick="mostrarDados()">Gerar Ficha de Matrícula</button>
             </fieldset>
         </form>
+        
+
     </div>
 
-        <div class="Professores">
-        <div class="titulo">
-            <h1>Matrícula Online</h1>
+    <div id="Professores" class="pagina">
+                <h1>Professores</h1>
             <p>Preencha os dados abaixo com atenção</p>
-        </div>
+        
 
-                <form id="meuForm">
+                <form id="Professores">
             <fieldset>
                 <legend>Identificação do professor</legend>
                 
@@ -309,15 +366,20 @@
                             <button type="button" class="cadastrar" onclick="mostrarDados()">Gerar Ficha de Matrícula</button>
             </fieldset>
 
+            </form>
+    </div>
 
 
-            <div class="Secretaria">
+
+
+
+            <div id="Secretaria" class="pagina">
         <div class="titulo">
-            <h1>Matrícula Online</h1>
+            <h1>Secretaria</h1>
             <p>Preencha os dados abaixo com atenção</p>
         </div>
 
-                <form id="meuForm">
+                <form id="Secretaria">
             <fieldset>
                 <legend>Identificação da Secretaria</legend>
                 
@@ -345,6 +407,10 @@
                 <input type="email" id="email" placeholder="contato@mail.com">
                             <button type="button" class="cadastrar" onclick="mostrarDados()">Gerar Ficha de Matrícula</button>
             </fieldset>
+
+
+            </form>
+            </div>
 
 
     
@@ -380,7 +446,13 @@
             if (!nome) {
                 alert("Por favor, informe ao menos o nome do aluno.");
                 return;
+            
+
+
+
             }
+
+            
 
             const dataNesc = document.getElementById("dataNesc").value;
             const cpf = document.getElementById("cpf").value;
@@ -389,7 +461,9 @@
             const cpfPai = document.getElementById("cpfPai").value;
             const nomeMae = document.getElementById("nomeMae").value;
             const cpfMae = document.getElementById("cpfMae").value;
-            
+
+
+            const abaAtiva = document.querySelector('')
             const genero = document.querySelector('input[name="genero"]:checked')?.value || "Não informado";
 
             const divResultado = document.getElementById("resultado");
@@ -416,6 +490,19 @@
             `;
             
             divResultado.scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function Dashboard(){
+
+            const qtdAlunos = localStorage.getItem("cont_alunos") || 0;
+            const qtdProfs = localStorage.getItem("cont_professores") || 0;
+            const qtdFuncs = localStorage.getItem("cont_funcionarios") || 0;
+            
+            const card = document.querySelectorAll("#dashboard .card p");
+
+            cards[0].innertext = qtdAlunos;
+            cards[1].innertext = qtdProfs;
+            cards[2].innertext = qtdFuncs;
         }
     </script>
 </body>
