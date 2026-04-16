@@ -441,6 +441,7 @@
             });
         });
 
+        
         function mostrarDados() {
             const nome = document.getElementById("nome").value;
             if (!nome) {
@@ -463,7 +464,9 @@
             const cpfMae = document.getElementById("cpfMae").value;
 
 
-            const abaAtiva = document.querySelector('')
+            const abaAtiva = document.querySelector('.pagina-ativa').id;
+            let atual = parseInt(localStorage.getItem('cont_' +abaAtiva)) ||0;
+            localStorage.setItem('cont_'+ abaAtiva, atual +1);
             const genero = document.querySelector('input[name="genero"]:checked')?.value || "Não informado";
 
             const divResultado = document.getElementById("resultado");
@@ -473,21 +476,7 @@
 
             const dataFormatada = dataNesc ? dataNesc.split('-').reverse().join('/') : "---";
 
-            divResultado.innerHTML = `
-                <div style="text-align:center; margin-bottom: 20px;">
-                    <h2 style="margin:0; color: #3b82f6;">✓ Matrícula Gerada</h2>
-                    <p style="font-size: 0.9rem; opacity: 0.8;">EEB Dom Jaime de Barros Câmara</p>
-                </div>
-                <div style="background: rgba(255,255,255,0.05); padding: 20px; border-radius: 10px;">
-                    <p><strong>Aluno:</strong> ${nome}</p>
-                    <p><strong>CPF:</strong> ${cpf || "---"} | <strong>Nasc:</strong> ${dataFormatada}</p>
-                    <p><strong>Gênero:</strong> ${genero} | <strong>E-mail:</strong> ${email || "---"}</p>
-                    <hr style="border:0; border-top: 1px solid rgba(255,255,255,0.1); margin: 15px 0;">
-                    <p style="margin-bottom: 5px;"><strong>Responsável 1:</strong> ${nomePai || "---"} (${cpfPai || "N/A"})</p>
-                    <p><strong>Responsável 2:</strong> ${nomeMae || "---"} (${cpfMae || "N/A"})</p>
-                </div>
-                <button onclick="window.print()" style="margin-top: 20px; background: none; border: 1px solid #3b82f6; color: #3b82f6; padding: 10px 20px; border-radius: 5px; cursor: pointer; width: 100%;">Imprimir Ficha</button>
-            `;
+            
             
             divResultado.scrollIntoView({ behavior: 'smooth' });
         }
