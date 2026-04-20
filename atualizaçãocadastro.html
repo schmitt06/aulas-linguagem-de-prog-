@@ -234,7 +234,7 @@
     <nav class="menu">
         <div class="menu-esquerda">DOM JAIME</div>
         <div class="menu-centro">
-            <span>Início</span>
+            <span onclick="navegar('Dashboard')">Início</span>
             <span onclick="navegar('Alunos')">Alunos</span>
             <span onclick="navegar('Professores')">Professores</span>
             <span onclick="navegar('Secretaria')">Secretaria</span>
@@ -286,7 +286,7 @@
                 <legend>Identificação do Aluno</legend>
                 
                 <label for="nome">Nome Completo</label>
-                <input type="text" id="nome" placeholder="Nome Completo" required>
+                <input type="text" id="nomeAlunos" placeholder="Nome Completo" required>
 
                 <label>Gênero</label>
                 <div class="genero-container">
@@ -342,7 +342,7 @@
                 <legend>Identificação do professor</legend>
                 
                 <label for="nome">Nome Completo</label>
-                <input type="text" id="nome" placeholder="Nome Completo" required>
+                <input type="text" id="nomeProfs" placeholder="Nome Completo" required>
 
                 <label>Gênero</label>
                 <div class="genero-container">
@@ -384,7 +384,7 @@
                 <legend>Identificação da Secretaria</legend>
                 
                 <label for="nome">Nome Completo</label>
-                <input type="text" id="nome" placeholder="Nome Completo" required>
+                <input type="text" id="nomeSecretaria" placeholder="Nome Completo" required>
 
                 <label>Gênero</label>
                 <div class="genero-container">
@@ -414,21 +414,25 @@
 
 
     
-    .
+    
     <div id="resultado" class="resultado"></div>
 
     <script>
 
-        function navegar(pagina){
+     function navegar(pagina){
 
-            let paginas = document.getElementsByClassName("pagina");
-            for(let i = 0; i < paginas.length; i++){
-                paginas[i].classList.remove("pagina-ativa");
+    let paginas = document.getElementsByClassName("pagina");
 
-            
-            }
-            document.getElementById(pagina).classList.add("pagina-ativa")
-        }
+    for(let i = 0; i < paginas.length; i++){
+        paginas[i].classList.remove("pagina-ativa");
+    }
+
+    document.getElementById(pagina).classList.add("pagina-ativa");
+
+    if(pagina === "Dashboard"){
+        Dashboard();
+    }
+         }
 
         document.querySelectorAll('.input-cpf').forEach(input => {
             input.addEventListener('input', function (e) {
@@ -443,55 +447,66 @@
 
         
         function mostrarDados() {
-            const nome = document.getElementById("nome").value;
-            if (!nome) {
-                alert("Por favor, informe ao menos o nome do aluno.");
-                return;
+
+    const pagina = document.querySelector(".pagina-ativa");
+    let nome = "";
+
+    if (pagina.id === "Alunos") {
+        nome = document.getElementById("nomeAlunos").value;
+    } 
+    else if (pagina.id === "Professores") {
+        nome = document.getElementById("nomeProfs").value;
+    } 
+    else if (pagina.id === "Secretaria") {
+        nome = document.getElementById("nomeSecretaria").value;
+    }
+
+    if (!nome) {
+        alert("Por favor, informe o nome.");
+        return;
+    }
+
+    const dataNesc = pagina.querySelector('input[type="date"]').value;
+    const cpf = pagina.querySelector('#cpf').value;
+    const email = pagina.querySelector('#email').value;
+
+    const genero = pagina.querySelector('input[name="genero"]:checked')?.value || "Não informado";
+
+    const abaAtiva = pagina.id;
+    let atual = parseInt(localStorage.getItem('cont_' + abaAtiva)) || 0;
+    localStorage.setItem('cont_' + abaAtiva, atual + 1);
+
+    const divResultado = document.getElementById("resultado");
+    divResultado.style.display = "block";
+    divResultado.style.backgroundColor = "#1e293b";
+    divResultado.style.color = "#f8fafc";
+
+    const dataFormatada = dataNesc ? dataNesc.split('-').reverse().join('/') : "---";
+
+    divResultado.innerHTML = `
+        <h2>Ficha Gerada</h2>
+        <p><strong>Nome:</strong> ${nome}</p>
+        <p><strong>Data:</strong> ${dataFormatada}</p>
+        <p><strong>CPF:</strong> ${cpf}</p>
+        <p><strong>Email:</strong> ${email}</p>
+        <p><strong>Gênero:</strong> ${genero}</p>
+    `;
+
+    divResultado.scrollIntoView({ behavior: 'smooth' });
+}
+        
+
+        function Dashboard(){;
+
+            const qtdAlunos = localStorage.getItem("cont_Alunos") || 0;
+            const qtdProfs = localStorage.getItem("cont_Professores") || 0;
+            const qtdFuncs = localStorage.getItem("cont_Secretaria") || 0;
             
+            const card = document.querySelectorAll("#Dashboard .card p");
 
-
-
-            }
-
-            
-
-            const dataNesc = document.getElementById("dataNesc").value;
-            const cpf = document.getElementById("cpf").value;
-            const email = document.getElementById("email").value;
-            const nomePai = document.getElementById("nomePai").value;
-            const cpfPai = document.getElementById("cpfPai").value;
-            const nomeMae = document.getElementById("nomeMae").value;
-            const cpfMae = document.getElementById("cpfMae").value;
-
-
-            const abaAtiva = document.querySelector('.pagina-ativa').id;
-            let atual = parseInt(localStorage.getItem('cont_' +abaAtiva)) ||0;
-            localStorage.setItem('cont_'+ abaAtiva, atual +1);
-            const genero = document.querySelector('input[name="genero"]:checked')?.value || "Não informado";
-
-            const divResultado = document.getElementById("resultado");
-            divResultado.style.display = "block";
-            divResultado.style.backgroundColor = "#1e293b";
-            divResultado.style.color = "#f8fafc";
-
-            const dataFormatada = dataNesc ? dataNesc.split('-').reverse().join('/') : "---";
-
-            
-            
-            divResultado.scrollIntoView({ behavior: 'smooth' });
-        }
-
-        function Dashboard(){
-
-            const qtdAlunos = localStorage.getItem("cont_alunos") || 0;
-            const qtdProfs = localStorage.getItem("cont_professores") || 0;
-            const qtdFuncs = localStorage.getItem("cont_funcionarios") || 0;
-            
-            const card = document.querySelectorAll("#dashboard .card p");
-
-            cards[0].innertext = qtdAlunos;
-            cards[1].innertext = qtdProfs;
-            cards[2].innertext = qtdFuncs;
+            card[0].innerText = qtdAlunos;
+            card[1].innerText = qtdProfs;
+            card[2].innerText = qtdFuncs;
         }
     </script>
 </body>
